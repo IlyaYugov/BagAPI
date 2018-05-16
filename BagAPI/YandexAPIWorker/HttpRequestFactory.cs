@@ -9,7 +9,7 @@ namespace YandexAPIWorker
 {
     public static class HttpRequestFactory
     {
-        public static Shedule GetShedule(string apikey, string from, string to, DateTime? date = null
+        public static Schedule GetSchedule(string apikey, string from, string to, DateTime? date = null
             , string lang = null, string transport_types = null, string offset = null, string limit = null)
         {
             var dict = new Dictionary<string, string>
@@ -21,7 +21,7 @@ namespace YandexAPIWorker
                 {nameof(date), date?.ToString(ApiOptions.ParamDateFormat)}
             };
 
-            var builder = new HttpRequestBuilder<Shedule>(MethodType.Shedule);
+            var builder = new HttpRequestBuilder<Schedule>(MethodType.Shedule);
             builder.UrlBuilderForParams(dict);
             return builder.SendAsync().Result;
         }

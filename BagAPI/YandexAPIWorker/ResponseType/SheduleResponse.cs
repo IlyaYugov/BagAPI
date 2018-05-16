@@ -133,7 +133,7 @@ namespace YandexAPIWorker.ResponseType
             public From2 from { get; set; }
         }
 
-        public class Shedule
+        public class Schedule
         {
             //public List<object> interval_segments { get; set; }
             //public Pagination pagination { get; set; }
