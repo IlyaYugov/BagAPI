@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using System.Collections.Generic;
+using BagAPI.DTO;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BagAPI.Controllers
@@ -11,15 +8,41 @@ namespace BagAPI.Controllers
     [Route("api/Sheduler")]
     public class ShedulerController : Controller
     {
-        [HttpGet]
-        public IEnumerable<string> GetCities()
+        [HttpGet("/api/Sheduler/GetCities")]
+        public IEnumerable<TwoDto> GetCities()
         {
-            return new[] { "value1", "value2" };
+            return new List<TwoDto>();
         }
-        [HttpGet]
-        public IEnumerable<string> Get()
+
+        [HttpGet("/api/Sheduler/GetRequestList")]
+        public IEnumerable<RequestDto> GetRequestList(Filter filter)
         {
-            return new[] { "value1", "value2" };
+            return new List<RequestDto>();
+        }
+
+
+        [HttpGet("/api/Sheduler/GetOrder")]
+        public RequestDto GetOrder(int id)
+        {
+            return new RequestDto();
+        }
+
+        [HttpPut("/api/Sheduler/AproveReuest")]
+        public RequestDto AproveReuest(int orderId, int senderId = 0)
+        {
+            return new RequestDto();
+        }
+
+        [HttpPost("/api/Sheduler/CreateRequest")]
+        public RequestDto CreateRequest(RequestDto userDto)
+        {
+            return new RequestDto();
+        }
+
+        [HttpPut("/api/Sheduler/UpdateRequest")]
+        public RequestDto UpdateRequest(RequestDto userDto)
+        {
+            return new RequestDto();
         }
     }
 }

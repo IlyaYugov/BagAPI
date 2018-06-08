@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using BagAPI.DTO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -10,16 +11,18 @@ using Newtonsoft.Json;
 
 namespace BagAPI.Controllers
 {
+    [Produces("application/json")]
+    [Route("api/Account")]
     public class AccountController : Controller
     {
-        [HttpPost("/token")]
-        public async Task Token(string username, string password)
+        [HttpPost("/api/Account/token")]
+        public async Task Token(string mail, string password)
         {
-            var identity = GetIdentity(username, password);
+            var identity = GetIdentity(mail, password);
             if (identity == null)
             {
                 Response.StatusCode = 400;
-                await Response.WriteAsync("Invalid username or password.");
+                await Response.WriteAsync("Invalid mail or password.");
                 return;
             }
 
@@ -45,9 +48,9 @@ namespace BagAPI.Controllers
             await Response.WriteAsync(JsonConvert.SerializeObject(response, new JsonSerializerSettings { Formatting = Formatting.Indented }));
         }
 
-        private ClaimsIdentity GetIdentity(string username, string password)
+        private ClaimsIdentity GetIdentity(string mail, string password)
         {
-            //Person person = people.FirstOrDefault(x => x.Login == username && x.Password == password);
+            //Person person = people.FirstOrDefault(x => x.Login == mail && x.Password == password);
             //if (person != null)
             //{
             //    var claims = new List<Claim>
@@ -63,6 +66,31 @@ namespace BagAPI.Controllers
 
             //// если пользователя не найдено
             return null;
+        }
+
+
+        [HttpGet("/api/Account/GetUser")]
+        public UserDto GetUser(int Id)
+        {
+            return new UserDto();
+        }
+
+        [HttpPost("/api/Account/CreateUser")]
+        public UserDto CreateUser(UserDto userDto)
+        {
+            return new UserDto();
+        }
+
+        [HttpPut("/api/Account/UpdateUser")]
+        public UserDto UpdateUser(UserDto userDto)
+        {
+            return new UserDto();
+        }
+
+        [HttpDelete("/api/Account/DeleteUser")]
+        public bool DeleteUser(int id)
+        {
+            return false;
         }
     }
 }
