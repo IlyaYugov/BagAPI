@@ -22,7 +22,7 @@ namespace DataAccess
 
         public DbSet<Bag> Bag { get; set; }
         public DbSet<BagType> BagType { get; set; }
-        public DbSet<City> Cite { get; set; }
+        public DbSet<City> City { get; set; }
         public DbSet<MessengerType> MessengerType { get; set; }
         public DbSet<Request> Request { get; set; }
         public DbSet<RequestStatus> RequestStatus { get; set; }
