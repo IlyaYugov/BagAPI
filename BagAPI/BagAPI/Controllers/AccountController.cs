@@ -15,38 +15,38 @@ namespace BagAPI.Controllers
     [Route("api/Account")]
     public class AccountController : Controller
     {
-        [HttpPost("/api/Account/token")]
-        public async Task Token(string mail, string password)
-        {
-            var identity = GetIdentity(mail, password);
-            if (identity == null)
-            {
-                Response.StatusCode = 400;
-                await Response.WriteAsync("Invalid mail or password.");
-                return;
-            }
+        //[HttpPost("/api/Account/token")]
+        //public async Task Token(string mail, string password)
+        //{
+        //    var identity = GetIdentity(mail, password);
+        //    if (identity == null)
+        //    {
+        //        Response.StatusCode = 400;
+        //        await Response.WriteAsync("Invalid mail or password.");
+        //        return;
+        //    }
 
-            var now = DateTime.UtcNow;
-            // создаем JWT-токен
-            var jwt = new JwtSecurityToken(
-                    issuer: AuthOptions.Issuer,
-                    audience: AuthOptions.Audience,
-                    notBefore: now,
-                    claims: identity.Claims,
-                    expires: now.Add(TimeSpan.FromMinutes(AuthOptions.Lifetime)),
-                    signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
-            var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
+        //    var now = DateTime.UtcNow;
+        //    // создаем JWT-токен
+        //    var jwt = new JwtSecurityToken(
+        //            issuer: AuthOptions.Issuer,
+        //            audience: AuthOptions.Audience,
+        //            notBefore: now,
+        //            claims: identity.Claims,
+        //            expires: now.Add(TimeSpan.FromMinutes(AuthOptions.Lifetime)),
+        //            signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
+        //    var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
 
-            var response = new
-            {
-                access_token = encodedJwt,
-                username = identity.Name
-            };
+        //    var response = new
+        //    {
+        //        access_token = encodedJwt,
+        //        username = identity.Name
+        //    };
 
-            // сериализация ответа
-            Response.ContentType = "application/json";
-            await Response.WriteAsync(JsonConvert.SerializeObject(response, new JsonSerializerSettings { Formatting = Formatting.Indented }));
-        }
+        //    // сериализация ответа
+        //    Response.ContentType = "application/json";
+        //    await Response.WriteAsync(JsonConvert.SerializeObject(response, new JsonSerializerSettings { Formatting = Formatting.Indented }));
+        //}
 
         private ClaimsIdentity GetIdentity(string mail, string password)
         {

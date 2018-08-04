@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using DataAccess.Model;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess
 {
@@ -8,7 +9,7 @@ namespace DataAccess
             : base(options)
         { }
 
-        //public DbSet<Blog> Blogs { get; set; }
-        //public DbSet<Post> Posts { get; set; }
+        public DbSet<User> Blogs { get; set; }
+        public DbSet<Request> Posts { get; set; }
     }
 }
