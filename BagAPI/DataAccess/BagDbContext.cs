@@ -9,7 +9,13 @@ namespace DataAccess
             : base(options)
         { }
 
-        public DbSet<User> Blogs { get; set; }
-        public DbSet<Request> Posts { get; set; }
+        public DbSet<Bag> Bags { get; set; }
+        public DbSet<BagType> BagTypes { get; set; }
+        public DbSet<City> Cites { get; set; }
+        public DbSet<MessengerType> MessengerTypes { get; set; }
+        public DbSet<Request> Requests { get; set; }
+        public DbSet<RequestStatus> RequestStatuses { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<UserMessenger> UserMessengers { get; set; }
     }
 }

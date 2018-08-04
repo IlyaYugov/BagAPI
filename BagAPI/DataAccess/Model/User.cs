@@ -18,5 +18,6 @@ namespace DataAccess.Model
         public List<Request> SourceRequests { get; set; }
         [InverseProperty("Sender")]
         public List<Request> SenderRequests { get; set; }
+        public List<UserMessenger> UserMessengers { get; set; }
     }
 }
