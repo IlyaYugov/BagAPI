@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
-using BagAPI.DTO;
+using DTO;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BagAPI.Controllers
 {
-    [Produces("application/json")]
     [Route("api/Sheduler")]
-    public class ShedulerController : Controller
+    public class ShedulerController : BaseController
     {
         [HttpGet("/api/Sheduler/GetCities")]
         public IEnumerable<TwoDto> GetCities()

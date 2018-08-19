@@ -1,6 +1,8 @@
 ﻿using System;
 using System.IO;
 using System.Net.Http;
+using DataAccess;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using YandexAPIWorker;
 using YandexAPIWorker.ResponseType;
@@ -13,7 +15,6 @@ namespace ConsoleTest
 
         static void Main(string[] args)
         {
-          
         }
     }
 }

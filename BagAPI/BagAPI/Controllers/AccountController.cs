@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using BagAPI.DTO;
+using DataAccess;
+using DataAccess.Implementations;
+using Domain;
+using DTO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -11,10 +14,16 @@ using Newtonsoft.Json;
 
 namespace BagAPI.Controllers
 {
-    [Produces("application/json")]
     [Route("api/Account")]
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
+        private BagDbContext _bagDbContext;
+        private UserDomain _userDomain;
+        public AccountController(BagDbContext context)
+        {
+            _bagDbContext = context;
+            _userDomain = new UserDomain(new UserRepository(context));
+        }
         //[HttpPost("/api/Account/token")]
         //public async Task Token(string mail, string password)
         //{
@@ -72,25 +81,26 @@ namespace BagAPI.Controllers
         [HttpGet("/api/Account/GetUser")]
         public UserDto GetUser(int Id)
         {
+
             return new UserDto();
         }
 
         [HttpPost("/api/Account/CreateUser")]
-        public UserDto CreateUser(UserDto userDto)
+        public UserDto CreateUser(UserDto user)
         {
-            return new UserDto();
+            return _userDomain.CreateUser(user);
         }
 
         [HttpPut("/api/Account/UpdateUser")]
-        public UserDto UpdateUser(UserDto userDto)
+        public UserDto UpdateUser(UserDto user)
         {
-            return new UserDto();
+            return _userDomain.UpdateUser(user);
         }
 
         [HttpDelete("/api/Account/DeleteUser")]
         public bool DeleteUser(int id)
         {
-            return false;
+            return _userDomain.DeleteUser(id);
         }
     }
 }

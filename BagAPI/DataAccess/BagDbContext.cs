@@ -5,10 +5,9 @@ namespace DataAccess
 {
     public class BagDbContext : DbContext
     {
-        public BagDbContext(DbContextOptions<BagDbContext> options)
+        protected BagDbContext(DbContextOptions<BagDbContext> options)
             : base(options)
-        { }
-
+        {}
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -20,13 +19,13 @@ namespace DataAccess
                 });
         }
 
-        public DbSet<Bag> Bag { get; set; }
-        public DbSet<BagType> BagType { get; set; }
-        public DbSet<City> City { get; set; }
-        public DbSet<MessengerType> MessengerType { get; set; }
-        public DbSet<Request> Request { get; set; }
-        public DbSet<RequestStatus> RequestStatus { get; set; }
-        public DbSet<User> User { get; set; }
-        public DbSet<UserMessenger> UserMessenger { get; set; }
+        internal DbSet<Bag> Bag { get; set; }
+        internal DbSet<BagType> BagType { get; set; }
+        internal DbSet<City> City { get; set; }
+        internal DbSet<MessengerType> MessengerType { get; set; }
+        internal DbSet<Request> Request { get; set; }
+        internal DbSet<RequestStatus> RequestStatus { get; set; }
+        internal DbSet<User> User { get; set; }
+        internal DbSet<UserMessenger> UserMessenger { get; set; }
     }
 }

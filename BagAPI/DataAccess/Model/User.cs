@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
+using DTO.Interfaces;
 
 namespace DataAccess.Model
 {
-    public class User
+    public class User : BaseUser
     {
         public int Id { get; set; }
         public string Login { get; set; }
@@ -18,6 +19,6 @@ namespace DataAccess.Model
         public List<Request> SourceRequests { get; set; }
         [InverseProperty("Sender")]
         public List<Request> SenderRequests { get; set; }
-        public List<UserMessenger> UserMessengers { get; set; }
+        public IEnumerable<UserMessenger> UserMessengers { get; set; }
     }
 }
