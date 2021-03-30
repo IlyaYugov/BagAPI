@@ -1,6 +1,6 @@
 ﻿namespace DataAccess.Model
 {
-    public class BugRequest
+    public class BagRequest
     {
         public int Id { get; set; }
         public int Price { get; set; }

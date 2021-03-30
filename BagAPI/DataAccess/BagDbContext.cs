@@ -51,7 +51,7 @@ namespace DataAccess
         internal DbSet<Settlement> Settlement { get; set; }
         internal DbSet<Station> Station { get; set; }
         //internal DbSet<MessengerType> MessengerType { get; set; }
-        internal DbSet<BugRequest> Request { get; set; }
+        internal DbSet<BagRequest> Request { get; set; }
         internal DbSet<RequestStatus> RequestStatus { get; set; }
         internal DbSet<User> User { get; set; }
         //internal DbSet<UserMessenger> UserMessenger { get; set; }

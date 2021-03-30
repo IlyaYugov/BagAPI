@@ -10,35 +10,35 @@ namespace ShareBagAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BugRequestController : ControllerBase
+    public class BagRequestController : ControllerBase
     {
-        // GET: api/<BugRequestController>
+        // GET: api/<BagRequestController>
         [HttpGet]
         public IEnumerable<string> Get()
         {
             return new string[] { "value1", "value2" };
         }
 
-        // GET api/<BugRequestController>/5
+        // GET api/<BagRequestController>/5
         [HttpGet("{id}")]
         public string Get(int id)
         {
             return "value";
         }
 
-        // POST api/<BugRequestController>
+        // POST api/<BagRequestController>
         [HttpPost]
         public void Post([FromBody] string value)
         {
         }
 
-        // PUT api/<BugRequestController>/5
+        // PUT api/<BagRequestController>/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
         }
 
-        // DELETE api/<BugRequestController>/5
+        // DELETE api/<BagRequestController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {

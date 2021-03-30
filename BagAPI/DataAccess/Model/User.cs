@@ -16,9 +16,9 @@ namespace DataAccess.Model
         public string LastName { get; set; }
 
         [InverseProperty("SourceUser")]
-        public List<BugRequest> SourceRequests { get; set; }
+        public List<BagRequest> SourceRequests { get; set; }
         [InverseProperty("SenderUser")]
-        public List<BugRequest> SenderRequests { get; set; }
+        public List<BagRequest> SenderRequests { get; set; }
         //public IEnumerable<UserMessenger> UserMessengers { get; set; }
     }
 }

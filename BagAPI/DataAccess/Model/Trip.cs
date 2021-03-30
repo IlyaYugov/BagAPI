@@ -18,6 +18,6 @@ namespace DataAccess.Model
         public string DestinationStationCode { get; set; }
         public Station DestinationStation { get; set; }
 
-        public List<BugRequest> Requests { get; set; }
+        public List<BagRequest> Requests { get; set; }
     }
 }

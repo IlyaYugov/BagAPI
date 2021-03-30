@@ -2,7 +2,7 @@
 
 namespace DTO
 {
-    public class BugRequestDto
+    public class BagRequestDto
     {
         public string TripNumber { get; set; }
         public string Weight { get; set; }
