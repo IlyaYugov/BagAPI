@@ -15,10 +15,10 @@ namespace DataAccess.Model
         public string FirstName { get; set; }
         public string LastName { get; set; }
 
-        [InverseProperty("Source")]
-        public List<Request> SourceRequests { get; set; }
-        [InverseProperty("Sender")]
-        public List<Request> SenderRequests { get; set; }
-        public IEnumerable<UserMessenger> UserMessengers { get; set; }
+        [InverseProperty("SourceUser")]
+        public List<BugRequest> SourceRequests { get; set; }
+        [InverseProperty("SenderUser")]
+        public List<BugRequest> SenderRequests { get; set; }
+        //public IEnumerable<UserMessenger> UserMessengers { get; set; }
     }
 }

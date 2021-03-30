@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace DataAccess.Model
 {
-    public class Flight
+    public class Trip
     {
         public int Id { get; set; }
         public int SourceId { get; set; }
@@ -12,8 +12,12 @@ namespace DataAccess.Model
         public DateTime DepartureTime { get; set; }
         public DateTime ArrivalTime { get; set; }
 
-        public City Source { get; set; }
-        public City Destination { get; set; }
-        public List<Request> Requests { get; set; }
+        public string SourceStationCode { get; set; }
+        public Station SourceStation { get; set; }
+
+        public string DestinationStationCode { get; set; }
+        public Station DestinationStation { get; set; }
+
+        public List<BugRequest> Requests { get; set; }
     }
 }

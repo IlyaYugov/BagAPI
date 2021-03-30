@@ -3,7 +3,6 @@ using System.IO;
 using System.Net.Http;
 using DataAccess;
 using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
 using YandexAPIWorker;
 using YandexAPIWorker.ResponseType;
 

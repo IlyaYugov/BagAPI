@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27428.2027
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31112.23
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BagAPI", "BagAPI\BagAPI.csproj", "{AA340D19-0649-4196-8913-DE24187F170F}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -22,6 +22,12 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleTest", "ConsoleTest\ConsoleTest.csproj", "{9108DD2B-CB7F-4C86-A901-B6BDD78849E0}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DTO", "DTO\DTO.csproj", "{11EC3B9A-EF04-41C7-9471-5BCD620EE00A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests", "Tests\Tests.csproj", "{C929856F-109D-4D06-A022-5AC3A4DA88A8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YandexApiParser", "YandexApiParser\YandexApiParser.csproj", "{C20F94E8-C151-44FA-8888-D1BFBBECD6DD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShareBagAPI", "ShareBagAPI\ShareBagAPI.csproj", "{8959BB3B-81DC-44A8-80B6-0362255C53DA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,6 +59,18 @@ Global
 		{11EC3B9A-EF04-41C7-9471-5BCD620EE00A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{11EC3B9A-EF04-41C7-9471-5BCD620EE00A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{11EC3B9A-EF04-41C7-9471-5BCD620EE00A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C929856F-109D-4D06-A022-5AC3A4DA88A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C929856F-109D-4D06-A022-5AC3A4DA88A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C929856F-109D-4D06-A022-5AC3A4DA88A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C929856F-109D-4D06-A022-5AC3A4DA88A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C20F94E8-C151-44FA-8888-D1BFBBECD6DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C20F94E8-C151-44FA-8888-D1BFBBECD6DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C20F94E8-C151-44FA-8888-D1BFBBECD6DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C20F94E8-C151-44FA-8888-D1BFBBECD6DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8959BB3B-81DC-44A8-80B6-0362255C53DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8959BB3B-81DC-44A8-80B6-0362255C53DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8959BB3B-81DC-44A8-80B6-0362255C53DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8959BB3B-81DC-44A8-80B6-0362255C53DA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

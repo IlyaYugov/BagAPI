@@ -1,6 +1,5 @@
 ﻿using Domain.IRepositories;
 using DTO;
-using DTO.Interfaces;
 
 namespace Domain
 {

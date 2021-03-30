@@ -13,6 +13,6 @@ namespace DataAccess.Model
         public int Weight { get; set; }
 
         public BagType Type { get; set; }
-        public List<Request> Requests { get; set; }
+        public List<BugRequest> Requests { get; set; }
     }
 }

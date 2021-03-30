@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using YandexAPIWorker.Emun;
 using static YandexAPIWorker.ResponseType.SheduleResponse;
 using static YandexAPIWorker.ResponseType.CityResponse;
+using System.Threading.Tasks;
 
 namespace YandexAPIWorker
 {
-    public static class HttpRequestFactory
+    public class HttpRequestFactory
     {
-        public static Schedule GetSchedule(string apikey, string from, string to, DateTime? date = null
+        public async static Task<Schedule> GetSchedule(string apikey, string from, string to, DateTime? date = null
             , string lang = null, string transport_types = null, string offset = null, string limit = null)
         {
             var dict = new Dictionary<string, string>
@@ -23,10 +23,10 @@ namespace YandexAPIWorker
 
             var builder = new HttpRequestBuilder<Schedule>(MethodType.Shedule);
             builder.UrlBuilderForParams(dict);
-            return builder.SendAsync().Result;
+            return await builder.SendAsync();
         }
 
-        public static Stations GetCountres(string apikey, string lang = null)
+        public async static Task<Stations> GetCountres(string apikey, string lang = null)
         {
             var dict = new Dictionary<string, string>
             {
@@ -36,7 +36,7 @@ namespace YandexAPIWorker
 
             var builder = new HttpRequestBuilder<Stations>(MethodType.Stations);
             builder.UrlBuilderForParams(dict);
-            return builder.SendAsync().Result;
+            return await builder.SendAsync();
         }
     }
 }

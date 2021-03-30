@@ -8,6 +8,6 @@ namespace DataAccess.Model
         public string Name { get; set; }
         public string Code { get; set; }
 
-        public List<Request> Requests { get; set; }
+        public List<BugRequest> Requests { get; set; }
     }
 }
