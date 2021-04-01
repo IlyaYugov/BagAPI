@@ -10,6 +10,6 @@ namespace DTO
         public int PhoneNumber { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public List<string> Messengers { get; set; }
+        public IEnumerable<string> Messengers { get; set; }
     }
 }

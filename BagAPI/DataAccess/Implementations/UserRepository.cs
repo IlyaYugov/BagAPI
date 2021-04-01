@@ -30,7 +30,7 @@ namespace DataAccess.Implementations
         public bool DeleteUser(int id)
         {
             var user = _bagDbContext.User.FirstOrDefault(u=>u.Id == id);
-            _bagDbContext.RemoveRange(user.UserMessengers);
+            //_bagDbContext.RemoveRange(user.UserMessengers);
             _bagDbContext.Remove(user);
             _bagDbContext.Save();
 
@@ -38,7 +38,7 @@ namespace DataAccess.Implementations
             return true;
         }
 
-        public List<string> GetMessangers(int id)
+        public IEnumerable<string> GetMessangers(int id)
         {
             throw new NotImplementedException();
         }
@@ -70,11 +70,11 @@ namespace DataAccess.Implementations
             user.LastName = userDto.LastName;
             user.Login = userDto.Login;
             user.PhoneNumber = userDto.PhoneNumber;
-            user.UserMessengers = userDto.Messengers.Select(m =>
-             new UserMessenger
+            //user.UserMessengers = userDto.Messengers.Select(m =>
+            /* new UserMessenger
              {
                  Contact = m
-             }).ToList();
+             }).ToList();*/
         } 
     }
 }

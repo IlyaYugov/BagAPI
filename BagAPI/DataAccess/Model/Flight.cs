@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace DataAccess.Model
 {
-    public class Trip
+    public class Flight
     {
         public int Id { get; set; }
         public int SourceId { get; set; }

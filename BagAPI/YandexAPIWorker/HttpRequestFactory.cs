@@ -9,12 +9,12 @@ namespace YandexAPIWorker
 {
     public class HttpRequestFactory
     {
-        public async static Task<Schedule> GetSchedule(string apikey, string from, string to, DateTime? date = null
+        public async static Task<Schedule> GetSchedule(string from, string to, DateTime? date = null
             , string lang = null, string transport_types = null, string offset = null, string limit = null)
         {
             var dict = new Dictionary<string, string>
             {
-                {nameof(apikey), apikey},
+                {"apikey", ApiOptions.ApiKey},
                 {nameof(from), from },
                 {nameof(to), to},
                 {nameof(lang), lang},
@@ -26,11 +26,11 @@ namespace YandexAPIWorker
             return await builder.SendAsync();
         }
 
-        public async static Task<Stations> GetCountres(string apikey, string lang = null)
+        public async static Task<Stations> GetCountres(string lang = null)
         {
             var dict = new Dictionary<string, string>
             {
-                {nameof(apikey), apikey},
+                {"apikey", ApiOptions.ApiKey},
                 {nameof(lang), lang}
             };
 

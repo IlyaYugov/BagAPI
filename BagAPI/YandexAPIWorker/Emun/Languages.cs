@@ -7,5 +7,6 @@
     {
         ru_RU,
         uk_UA,
+        en_RU,
     }
 }

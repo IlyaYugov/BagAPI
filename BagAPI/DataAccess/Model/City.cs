@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DataAccess.Model
 {
-    public class City
+    public class Country
     {
         [Key]
         public string Code { get; set; }

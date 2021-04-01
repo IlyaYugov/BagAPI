@@ -5,7 +5,7 @@ namespace DataAccess
 {
     public class BagDbContext : DbContext
     {
-        protected BagDbContext(DbContextOptions<BagDbContext> options)
+        public BagDbContext(DbContextOptions<BagDbContext> options)
             : base(options)
         {}
 
@@ -19,7 +19,7 @@ namespace DataAccess
                 });*/
 
             modelBuilder.Entity<Region>()
-            .HasOne(p => p.City)
+            .HasOne(p => p.Country)
             .WithMany(b => b.Regions)
             .HasForeignKey(p => p.CityCode);
 
@@ -33,20 +33,19 @@ namespace DataAccess
             .WithMany(b => b.Stations)
             .HasForeignKey(p => p.SettlementCode);
 
-            modelBuilder.Entity<Trip>()
+            modelBuilder.Entity<Flight>()
             .HasOne(p => p.SourceStation)
-            .WithMany(b => b.SourceTrips)
+            .WithMany(b => b.SourceFlights)
             .HasForeignKey(p => p.SourceStationCode);
 
-            modelBuilder.Entity<Trip>()
+            modelBuilder.Entity<Flight>()
             .HasOne(p => p.DestinationStation)
-            .WithMany(b => b.DestinationTrips)
+            .WithMany(b => b.DestinationFlights)
             .HasForeignKey(p => p.DestinationStationCode);
         }
 
         internal DbSet<Bag> Bag { get; set; }
-        internal DbSet<BagType> BagType { get; set; }
-        internal DbSet<City> City { get; set; }
+        internal DbSet<Country> Country { get; set; }
         internal DbSet<Region> Region { get; set; }
         internal DbSet<Settlement> Settlement { get; set; }
         internal DbSet<Station> Station { get; set; }

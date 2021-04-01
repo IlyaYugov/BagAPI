@@ -7,8 +7,8 @@ namespace BagAPI.Controllers
     [Route("api/Sheduler")]
     public class ShedulerController : BaseController
     {
-        [HttpGet("/api/Sheduler/GetCities")]
-        public IEnumerable<TwoDto> GetCities()
+        [HttpGet("/api/Sheduler/GetCountries")]
+        public IEnumerable<TwoDto> GetCountries()
         {
             return new List<TwoDto>();
         }

@@ -4,15 +4,16 @@ namespace DTO
 {
     public class BagRequestDto
     {
-        public string TripNumber { get; set; }
-        public string Weight { get; set; }
-        public string Way { get; set; }
+        public string FlightNumber { get; set; }
         public DateTime Date { get; set; }
+        public byte[] Photo { get; set; }
+
+        public BagDto Bag {get;set;}
+
         public UserDto SourceUser { get; set; }
         public UserDto SenderUser { get; set; }
-        public string Description { get; set; }
-        public int Price { get; set; }
-        public byte[] Photo { get; set; }
-        public int TypeId { get; set; }
+
+        public CityDto SourceDirection { get; set; }
+        public CityDto DestinationDirection { get; set; }
     }
 }

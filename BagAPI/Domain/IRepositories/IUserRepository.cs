@@ -9,6 +9,6 @@ namespace Domain.IRepositories
         UserDto CreateUser(UserDto userDto);
         UserDto UpdateUser(UserDto userDto);
         bool DeleteUser(int id);
-        List<string> GetMessangers(int id);
+        IEnumerable<string> GetMessangers(int id);
     }
 }

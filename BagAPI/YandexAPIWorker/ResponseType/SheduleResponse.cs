@@ -57,16 +57,16 @@ namespace YandexAPIWorker.ResponseType
 
         public class Thread
         {
-            public string uid { get; set; }
-            public string title { get; set; }
+            /*public string uid { get; set; }
+            public string title { get; set; }*/
             public string number { get; set; }
-            public string short_title { get; set; }
+           /* public string short_title { get; set; }
             public string thread_method_link { get; set; }
             public Carrier carrier { get; set; }
             public string transport_type { get; set; }
             public string vehicle { get; set; }
             public TransportSubtype transport_subtype { get; set; }
-            public object express_type { get; set; }
+            public object express_type { get; set; }*/
         }
 
         public class To
@@ -93,7 +93,7 @@ namespace YandexAPIWorker.ResponseType
 
             public From from { get; set; }
 
-            //public Thread thread { get; set; }
+            public Thread thread { get; set; }
             //public string departure_platform { get; set; }
             public DateTime departure { get; set; }
 
@@ -136,7 +136,7 @@ namespace YandexAPIWorker.ResponseType
         public class Schedule
         {
             //public List<object> interval_segments { get; set; }
-            //public Pagination pagination { get; set; }
+            public Pagination pagination { get; set; }
             public List<Segment> segments { get; set; }
             //public Search search { get; set; }
         }

@@ -1,4 +1,7 @@
 using DataAccess;
+using DataAccess.Implementations;
+using Domain;
+using Domain.IRepositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -13,6 +16,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using YandexAPIWorker;
 
 namespace ShareBagAPI
 {
@@ -34,7 +38,8 @@ namespace ShareBagAPI
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ShareBagAPI", Version = "v1" });
             });
-            services.AddDbContext<BagDbContext>(opt => opt.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
+
+            ConfigureDependences(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -57,6 +62,17 @@ namespace ShareBagAPI
             {
                 endpoints.MapControllers();
             });
+        }
+
+        public void ConfigureDependences(IServiceCollection services)
+        {
+            services.AddDbContext<BagDbContext>(opt => opt.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddTransient<IDirectionRepository, DirectionRepository>();
+            services.AddTransient<IBagRequestRepository, BagRequestRepository>();
+            services.AddTransient<IFlightsGetter, FlightsGetter>();
+
+            ApiOptions.ApiKey = Configuration.GetConnectionString("YandexApiKey");
         }
     }
 }

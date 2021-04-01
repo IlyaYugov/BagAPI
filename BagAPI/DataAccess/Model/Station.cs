@@ -12,7 +12,7 @@ namespace DataAccess.Model
         public Settlement Settlement { get; set; }
         public string SettlementCode { get; set; }
 
-        public List<Trip> SourceTrips { get; set; }
-        public List<Trip> DestinationTrips { get; set; }
+        public List<Flight> SourceFlights { get; set; }
+        public List<Flight> DestinationFlights { get; set; }
     }
 }

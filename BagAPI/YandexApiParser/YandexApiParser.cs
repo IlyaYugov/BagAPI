@@ -9,11 +9,11 @@ namespace YandexApiParser
 {
     public class YandexApiParser
     {
-        public async Task<List<City>> ParseCities()
+        public async Task<List<Country>> ParseCountries()
         {
             var countries = await HttpRequestFactory.GetCountres("e5e79353-129f-4f08-bf58-36337edb6386", Languages.ru_RU.ToString());
 
-            var cities = countries.countries.Select(s => new City 
+            var сountries = countries.countries.Select(s => new Country 
             {
                 Code = s.codes.yandex_code, 
                 Title = s.title,
@@ -34,7 +34,7 @@ namespace YandexApiParser
                 }).ToList()
             }).ToList();
 
-            return cities;
+            return сountries;
         }
     }
 }

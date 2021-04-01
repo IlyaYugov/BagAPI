@@ -9,7 +9,7 @@ namespace DataAccess.Model
         public string Code { get; set; }
         public string Title { get; set; }
 
-        public City City { get; set; }
+        public Country Country { get; set; }
         public string CityCode { get; set; }
         public List<Settlement> Settlements { get; set; }
     }

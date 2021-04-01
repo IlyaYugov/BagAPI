@@ -4,12 +4,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace YandexApiParser
 {
-    public class CitiesDbFiller
+    public class CountriesDbFiller
     {
         private readonly YandexApiParser parser;
         private readonly BagDbContext dbContext;
 
-        public CitiesDbFiller()
+        public CountriesDbFiller()
         {
             parser = new YandexApiParser();
             var builder = new DbContextOptionsBuilder();
@@ -18,7 +18,7 @@ namespace YandexApiParser
 
         public void Fill()
         {
-            var cities = parser.ParseCities();
+            var сountries = parser.ParseCountries();
         }
     }
 }
