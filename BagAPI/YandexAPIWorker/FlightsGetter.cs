@@ -28,6 +28,7 @@ namespace YandexAPIWorker
                     ArrivalTime = s.arrival,
                     DepartureTime = s.departure
                 })
+                .OrderBy(f=>f.DepartureTime)
             };
 
             return flights;

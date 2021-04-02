@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace DataAccess.Model
 {
@@ -11,6 +10,7 @@ namespace DataAccess.Model
         public string Number { get; set; }
         public DateTime DepartureTime { get; set; }
         public DateTime ArrivalTime { get; set; }
+        public byte[] TicketPhoto { get; set; }
 
         public string SourceStationCode { get; set; }
         public Station SourceStation { get; set; }
@@ -18,6 +18,6 @@ namespace DataAccess.Model
         public string DestinationStationCode { get; set; }
         public Station DestinationStation { get; set; }
 
-        public List<BagRequest> Requests { get; set; }
+        public BagRequest Request { get; set; }
     }
 }

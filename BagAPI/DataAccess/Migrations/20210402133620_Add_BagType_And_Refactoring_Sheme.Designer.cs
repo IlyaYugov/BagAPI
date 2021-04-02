@@ -3,15 +3,17 @@ using System;
 using DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(BagDbContext))]
-    partial class BagDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210402133620_Add_BagType_And_Refactoring_Sheme")]
+    partial class Add_BagType_And_Refactoring_Sheme
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -73,8 +75,7 @@ namespace DataAccess.Migrations
                     b.HasIndex("BagId")
                         .IsUnique();
 
-                    b.HasIndex("FlightId")
-                        .IsUnique();
+                    b.HasIndex("FlightId");
 
                     b.HasIndex("RequestStatusId");
 
@@ -127,9 +128,6 @@ namespace DataAccess.Migrations
 
                     b.Property<string>("SourceStationCode")
                         .HasColumnType("text");
-
-                    b.Property<byte[]>("TicketPhoto")
-                        .HasColumnType("bytea");
 
                     b.HasKey("Id");
 
@@ -266,8 +264,8 @@ namespace DataAccess.Migrations
                         .IsRequired();
 
                     b.HasOne("DataAccess.Model.Flight", "Flight")
-                        .WithOne("Request")
-                        .HasForeignKey("DataAccess.Model.BagRequest", "FlightId")
+                        .WithMany("Requests")
+                        .HasForeignKey("FlightId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -362,7 +360,7 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("DataAccess.Model.Flight", b =>
                 {
-                    b.Navigation("Request");
+                    b.Navigation("Requests");
                 });
 
             modelBuilder.Entity("DataAccess.Model.Region", b =>

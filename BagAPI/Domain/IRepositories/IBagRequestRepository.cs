@@ -1,14 +1,15 @@
 ﻿using DTO;
+using System;
 using System.Collections.Generic;
 
 namespace Domain.IRepositories
 {
     public interface IBagRequestRepository
     {
-        BagRequestDto GetBagRequest(int Id);
-        BagRequestDto CreateBagRequest(BagRequestDto userDto, UserDto sourceUser);
+        BagRequestDto GetBagRequest(int id);
+        void CreateBagRequest(BagRequestDto userDto, int requestTypeId);
         BagRequestDto UpdateBagRequest(BagRequestDto userDto);
-        bool DeleteBagRequest(int id);
-        IEnumerable<BagRequestDto> GetBagRequests(int id);
+        void DeleteBagRequest(int id);
+        IEnumerable<BagRequestsDto> GetBagRequests(DateTime from, DateTime to, string depatrureStationCode, string arrivalStationCode, int requestTypeId);
     }
 }

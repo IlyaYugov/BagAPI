@@ -11,13 +11,6 @@ namespace DataAccess
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-           /* modelBuilder.Entity<UserMessenger>()
-                .HasKey(c => new
-                {
-                    c.UserId,
-                    c.MessengerTypeId
-                });*/
-
             modelBuilder.Entity<Region>()
             .HasOne(p => p.Country)
             .WithMany(b => b.Regions)
@@ -45,14 +38,13 @@ namespace DataAccess
         }
 
         internal DbSet<Bag> Bag { get; set; }
+        internal DbSet<RequestType> BagType { get; set; }
         internal DbSet<Country> Country { get; set; }
         internal DbSet<Region> Region { get; set; }
         internal DbSet<Settlement> Settlement { get; set; }
         internal DbSet<Station> Station { get; set; }
-        //internal DbSet<MessengerType> MessengerType { get; set; }
         internal DbSet<BagRequest> Request { get; set; }
         internal DbSet<RequestStatus> RequestStatus { get; set; }
         internal DbSet<User> User { get; set; }
-        //internal DbSet<UserMessenger> UserMessenger { get; set; }
     }
 }

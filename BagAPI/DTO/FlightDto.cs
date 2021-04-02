@@ -9,5 +9,6 @@ namespace DTO
         public string ArrivalStationCode { get; set; }
         public DateTime DepartureTime { get; set; }
         public DateTime ArrivalTime { get; set; }
+        public byte[] TicketPhoto { get; set; }
     }
 }
