@@ -71,6 +71,7 @@ namespace ShareBagAPI
             services.AddTransient<IDirectionRepository, DirectionRepository>();
             services.AddTransient<IBagRequestRepository, BagRequestRepository>();
             services.AddTransient<IFlightsGetter, FlightsGetter>();
+            services.AddTransient<DirectionDomain, DirectionDomain>();
 
             ApiOptions.ApiKey = Configuration.GetConnectionString("YandexApiKey");
         }

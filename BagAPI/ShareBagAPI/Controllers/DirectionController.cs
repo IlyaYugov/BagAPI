@@ -1,6 +1,9 @@
-﻿using DTO;
+﻿using Domain;
+using DTO;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace ShareBagAPI.Controllers
 {
@@ -8,18 +11,28 @@ namespace ShareBagAPI.Controllers
     [ApiController]
     public class DirectionController : ControllerBase
     {
+        private readonly DirectionDomain directionDomain;
+
+        public DirectionController(DirectionDomain directionDomain)
+        {
+            this.directionDomain = directionDomain;
+        }
+
         [Route("getDirections")]
         [HttpGet]
-        public List<CityDto> GetDirections(string search)
+        public IEnumerable<CityDto> GetDirections(string search)
         {
-            return new DirectionsResponseModel();
+            if (search?.Length < 3)
+                return new List<CityDto>();
+
+            return directionDomain.GetDirections(search);
         }
 
         [Route("getFlights")]
         [HttpGet]
-        public List<FlightDto> GetFlights(int skip, int take, string departure, string arrival)
+        public async Task<FlightsDto> GetFlights(string from, string to, DateTime date, string offset, string limit, string lang = null)
         {
-            return new DirectionsResponseModel();
+            return await directionDomain.GetFlights(from, to, date, offset, limit, lang);
         }
     }
 }

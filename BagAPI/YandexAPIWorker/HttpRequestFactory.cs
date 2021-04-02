@@ -9,16 +9,19 @@ namespace YandexAPIWorker
 {
     public class HttpRequestFactory
     {
-        public async static Task<Schedule> GetSchedule(string from, string to, DateTime? date = null
-            , string lang = null, string transport_types = null, string offset = null, string limit = null)
+        public async static Task<Schedule> GetSchedule(string from, string to, DateTime? date = null,
+            string offset = null, string limit = null, string lang = null, string transport_types = null)
         {
             var dict = new Dictionary<string, string>
             {
-                {"apikey", ApiOptions.ApiKey},
+                {ApiOptions.ApiKeyString, ApiOptions.ApiKey},
                 {nameof(from), from },
                 {nameof(to), to},
                 {nameof(lang), lang},
-                {nameof(date), date?.ToString(ApiOptions.ParamDateFormat)}
+                {nameof(date), date?.ToString(ApiOptions.ParamDateFormat)},
+                {nameof(offset), offset },
+                {nameof(limit), limit },
+                {nameof(transport_types), transport_types }
             };
 
             var builder = new HttpRequestBuilder<Schedule>(MethodType.Shedule);
@@ -30,7 +33,7 @@ namespace YandexAPIWorker
         {
             var dict = new Dictionary<string, string>
             {
-                {"apikey", ApiOptions.ApiKey},
+                {ApiOptions.ApiKeyString, ApiOptions.ApiKey},
                 {nameof(lang), lang}
             };
 

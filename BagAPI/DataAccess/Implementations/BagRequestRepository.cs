@@ -46,7 +46,7 @@ namespace DataAccess.Implementations
             throw new NotImplementedException();
         }
 
-        public List<BagRequestDto> GetBagRequests(int id)
+        public IEnumerable<BagRequestDto> GetBagRequests(int id)
         {
             throw new NotImplementedException();
         }

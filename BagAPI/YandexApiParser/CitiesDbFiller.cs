@@ -18,7 +18,7 @@ namespace YandexApiParser
 
         public void Fill()
         {
-            var сountries = parser.ParseCountries();
+            var сountries = parser.GetCountriesWithAiroports();
         }
     }
 }

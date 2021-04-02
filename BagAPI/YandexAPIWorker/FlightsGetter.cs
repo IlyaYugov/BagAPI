@@ -9,10 +9,13 @@ namespace YandexAPIWorker
 {
     public class FlightsGetter : IFlightsGetter
     {
-        public async Task<FlightsDto> GetFlights(string from, string to, DateTime date, string offset, string limit, string lang = null)
+        private const string plane = "plane";
+
+        public async Task<FlightsDto> GetFlights(string from, string to, DateTime date, string offset, string limit, string lang)
         {
             lang ??= Languages.ru_RU.ToString();
-            var shedule = await HttpRequestFactory.GetSchedule(from, to, date, offset, limit, lang);
+
+            var shedule = await HttpRequestFactory.GetSchedule(from, to, date, offset, limit, lang, plane);
 
             var flights = new FlightsDto
             {

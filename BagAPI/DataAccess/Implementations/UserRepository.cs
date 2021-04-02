@@ -68,7 +68,6 @@ namespace DataAccess.Implementations
             user.Email = userDto.Email;
             user.FirstName = userDto.FirstName;
             user.LastName = userDto.LastName;
-            user.Login = userDto.Login;
             user.PhoneNumber = userDto.PhoneNumber;
             //user.UserMessengers = userDto.Messengers.Select(m =>
             /* new UserMessenger
