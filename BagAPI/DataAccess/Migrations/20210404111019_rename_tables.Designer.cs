@@ -3,15 +3,17 @@ using System;
 using DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(BagDbContext))]
-    partial class BagDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210404111019_rename_tables")]
+    partial class rename_tables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -62,10 +64,10 @@ namespace DataAccess.Migrations
                     b.Property<int>("RequestTypeId")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("SenderUserId")
+                    b.Property<int>("SenderUserId")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("TransfererUserId")
+                    b.Property<int>("TransfererUserId")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
@@ -85,36 +87,6 @@ namespace DataAccess.Migrations
                     b.HasIndex("TransfererUserId");
 
                     b.ToTable("BagRequest");
-                });
-
-            modelBuilder.Entity("DataAccess.Model.BagRequestStatus", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .UseIdentityByDefaultColumn();
-
-                    b.Property<string>("Name")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("BagRequestStatus");
-                });
-
-            modelBuilder.Entity("DataAccess.Model.BagRequestType", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .UseIdentityByDefaultColumn();
-
-                    b.Property<string>("Name")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("BagRequestType");
                 });
 
             modelBuilder.Entity("DataAccess.Model.Country", b =>
@@ -188,6 +160,39 @@ namespace DataAccess.Migrations
                     b.ToTable("Region");
                 });
 
+            modelBuilder.Entity("DataAccess.Model.RequestStatus", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .UseIdentityByDefaultColumn();
+
+                    b.Property<string>("Code")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("BagRequestStatus");
+                });
+
+            modelBuilder.Entity("DataAccess.Model.RequestType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .UseIdentityByDefaultColumn();
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("BagRequestType");
+                });
+
             modelBuilder.Entity("DataAccess.Model.Settlement", b =>
                 {
                     b.Property<string>("Code")
@@ -251,9 +256,6 @@ namespace DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Email")
-                        .IsUnique();
-
                     b.ToTable("User");
                 });
 
@@ -271,13 +273,13 @@ namespace DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("DataAccess.Model.BagRequestStatus", "RequestStatus")
+                    b.HasOne("DataAccess.Model.RequestStatus", "RequestStatus")
                         .WithMany("Requests")
                         .HasForeignKey("RequestStatusId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("DataAccess.Model.BagRequestType", "RequestType")
+                    b.HasOne("DataAccess.Model.RequestType", "RequestType")
                         .WithMany()
                         .HasForeignKey("RequestTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -285,11 +287,15 @@ namespace DataAccess.Migrations
 
                     b.HasOne("DataAccess.Model.User", "SenderUser")
                         .WithMany("SenderRequests")
-                        .HasForeignKey("SenderUserId");
+                        .HasForeignKey("SenderUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("DataAccess.Model.User", "TransfererUser")
                         .WithMany("SourceRequests")
-                        .HasForeignKey("TransfererUserId");
+                        .HasForeignKey("TransfererUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Bag");
 
@@ -351,11 +357,6 @@ namespace DataAccess.Migrations
                     b.Navigation("BagRequest");
                 });
 
-            modelBuilder.Entity("DataAccess.Model.BagRequestStatus", b =>
-                {
-                    b.Navigation("Requests");
-                });
-
             modelBuilder.Entity("DataAccess.Model.Country", b =>
                 {
                     b.Navigation("Regions");
@@ -369,6 +370,11 @@ namespace DataAccess.Migrations
             modelBuilder.Entity("DataAccess.Model.Region", b =>
                 {
                     b.Navigation("Settlements");
+                });
+
+            modelBuilder.Entity("DataAccess.Model.RequestStatus", b =>
+                {
+                    b.Navigation("Requests");
                 });
 
             modelBuilder.Entity("DataAccess.Model.Settlement", b =>

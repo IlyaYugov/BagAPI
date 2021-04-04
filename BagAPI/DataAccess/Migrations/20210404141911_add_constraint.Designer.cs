@@ -3,15 +3,17 @@ using System;
 using DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(BagDbContext))]
-    partial class BagDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210404141911_add_constraint")]
+    partial class add_constraint
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -62,10 +64,10 @@ namespace DataAccess.Migrations
                     b.Property<int>("RequestTypeId")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("SenderUserId")
+                    b.Property<int>("SenderUserId")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("TransfererUserId")
+                    b.Property<int>("TransfererUserId")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
@@ -285,11 +287,15 @@ namespace DataAccess.Migrations
 
                     b.HasOne("DataAccess.Model.User", "SenderUser")
                         .WithMany("SenderRequests")
-                        .HasForeignKey("SenderUserId");
+                        .HasForeignKey("SenderUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("DataAccess.Model.User", "TransfererUser")
                         .WithMany("SourceRequests")
-                        .HasForeignKey("TransfererUserId");
+                        .HasForeignKey("TransfererUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Bag");
 

@@ -16,10 +16,12 @@ namespace DataAccess.Implementations
             _bagDbContext = bagDbContext;
         }
 
-        public void CreateBagRequest(BagRequestDto request, int requestTypeId)
+        public void CreateBagRequest(BagRequestDto request, int userId)
         {
             var bagRequest = new BagRequest
             {
+                RequestStatusId = (int)BagRequestStatuses.Created,
+                RequestTypeId = request.RequestTypeId,
                 Bag = new Bag
                 {
                     Descriprion = request.Bag.Descriprion,
@@ -27,7 +29,6 @@ namespace DataAccess.Implementations
                     Weight = request.Bag.Weight,
                     Price = request.Bag.Price
                 },
-                RequestStatusId = (int)RequestStatuses.Created,
                 Flight = new Flight
                 {
                     Number = request.Flight.FlightNumber,
@@ -39,28 +40,31 @@ namespace DataAccess.Implementations
                 },
             };
 
-           /* if(requestTypeId == (int)RequestTypes.SendBag)
+            if (request.RequestTypeId == (int)BagRequestTypes.SendBag)
             {
-                bagRequest.SenderUserId = SenderUserId = request.SenderUser.Id,
-                TransfererUserId = request.TransfererUser.Id
-            }*/
+                bagRequest.SenderUserId = userId;
+            }
+            if (request.RequestTypeId == (int)BagRequestTypes.TransfererBag)
+            {
+                bagRequest.TransfererUserId = userId;
+            }
 
-            _bagDbContext.Request.Add(bagRequest);
-            _bagDbContext.Save();
+            _bagDbContext.BagRequest.Add(bagRequest);
+            _bagDbContext.SaveChanges();
         }
 
         public void DeleteBagRequest(int id)
         {
-            var request = _bagDbContext.Request
+            var request = _bagDbContext.BagRequest
                 .FirstOrDefault(r => r.Id == id);
 
-            _bagDbContext.Request.Remove(request);
-            _bagDbContext.Save();
+            _bagDbContext.BagRequest.Remove(request);
+            _bagDbContext.SaveChanges();
         }
 
         public BagRequestDto GetBagRequest(int id)
         {
-            var request = _bagDbContext.Request
+            var request = _bagDbContext.BagRequest
                 .Include(r => r.Bag)
                 .Include(r => r.SenderUser)
                 .Include(r => r.TransfererUser)
@@ -68,6 +72,8 @@ namespace DataAccess.Implementations
 
             var result = new BagRequestDto
             {
+                Id = request.Id,
+                RequestTypeId = request.RequestTypeId,
                 Bag = new BagDto
                 {
                     Price = request.Bag.Price,
@@ -77,19 +83,19 @@ namespace DataAccess.Implementations
                 },
                 SenderUser = new UserDto
                 {
-                    FirstName = request.SenderUser.FirstName,
-                    Email = request.SenderUser.Email,
-                    LastName = request.SenderUser.LastName,
-                    PhoneNumber = request.SenderUser.PhoneNumber,
-                    Skype = request.SenderUser.Skype,
+                    FirstName = request.SenderUser?.FirstName,
+                    Email = request.SenderUser?.Email,
+                    LastName = request.SenderUser?.LastName,
+                    PhoneNumber = request.SenderUser?.PhoneNumber,
+                    Skype = request.SenderUser?.Skype,
                 },
                 TransfererUser = new UserDto
                 {
-                    FirstName = request.TransfererUser.FirstName,
-                    Email = request.TransfererUser.Email,
-                    LastName = request.TransfererUser.LastName,
-                    PhoneNumber = request.TransfererUser.PhoneNumber,
-                    Skype = request.TransfererUser.Skype,
+                    FirstName = request.TransfererUser?.FirstName,
+                    Email = request.TransfererUser?.Email,
+                    LastName = request.TransfererUser?.LastName,
+                    PhoneNumber = request.TransfererUser?.PhoneNumber,
+                    Skype = request.TransfererUser?.Skype,
                 },
             };
 
@@ -98,16 +104,18 @@ namespace DataAccess.Implementations
 
         public IEnumerable<BagRequestsDto> GetBagRequests(DateTime from, DateTime to, string depatrureStationCode, string arrivalStationCode, int requestTypeId)
         {
-            var requests = _bagDbContext.Request
+            var requests = _bagDbContext.BagRequest
                 .Where(r => r.Flight.DestinationStationCode == arrivalStationCode &&
                             r.Flight.SourceStationCode == depatrureStationCode &&
 
-                            from >= r.Flight.DepartureTime &&
-                            to <= r.Flight.DepartureTime &&
+                            from <= r.Flight.DepartureTime &&
+                            to >= r.Flight.DepartureTime &&
                             
                             r.RequestTypeId == requestTypeId)
                 .Include(r=>r.Bag)
                 .Include(r => r.Flight)
+                .Include(r => r.Flight.DestinationStation)
+                .Include(r => r.Flight.SourceStation)
                 .ToList();
 
             var result = requests.Select(r => new BagRequestsDto
@@ -124,9 +132,27 @@ namespace DataAccess.Implementations
             return result;
         }
 
-        public BagRequestDto UpdateBagRequest(BagRequestDto userDto)
+        public BagRequestDto Deal(BagRequestDto requestDto, UserDto user)
         {
-            throw new NotImplementedException();
+            var request = _bagDbContext.BagRequest.FirstOrDefault(r => r.Id == requestDto.Id);
+
+            request.RequestStatusId = (int)BagRequestStatuses.Deal;
+
+            if (requestDto.RequestTypeId == (int)BagRequestTypes.SendBag)
+            {
+                request.TransfererUserId = user.Id;
+                requestDto.TransfererUser = user;
+            }
+            if (requestDto.RequestTypeId == (int)BagRequestTypes.TransfererBag)
+            {
+                request.SenderUserId = user.Id;
+                requestDto.SenderUser = user;
+            }
+
+            _bagDbContext.Update(request);
+            _bagDbContext.SaveChanges();
+
+            return requestDto;
         }
     }
 }

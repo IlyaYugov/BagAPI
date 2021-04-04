@@ -1,5 +1,6 @@
 ﻿using Domain;
 using DTO;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ namespace ShareBagAPI.Controllers
 {
     [Route("api/direction")]
     [ApiController]
+    [Authorize]
     public class DirectionController : ControllerBase
     {
         private readonly DirectionDomain directionDomain;
@@ -18,6 +20,7 @@ namespace ShareBagAPI.Controllers
             this.directionDomain = directionDomain;
         }
 
+        //[Authorize(AuthenticationSchemes = "Bearer")]
         [Route("getDirections")]
         [HttpGet]
         public IEnumerable<CityDto> GetDirections(string search)

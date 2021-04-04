@@ -12,26 +12,68 @@ namespace Domain
             _repository = repository;
         }
 
-        public UserDto GetUser(int id)
+        public UserResult GetUser(string email)
         {
-            return _repository.GetUser(id);
+            var result = new UserResult();
+            result.User = _repository.GetUser(email);
+
+            if (result.User == null)
+            {
+                result.ExceptionNessage = "User with this email not foundInDb";
+                return result;
+            }
+
+            return result;
         }
-        public void GetUserList()
+        public UserResult GetUser(string email, string password)
         {
-        }
-        public UserDto CreateUser(UserDto user)
-        {
-            return _repository.CreateUser(user);
+            var result = new UserResult();
+            result.User = _repository.GetUser(email, password);
+
+            if (result.User == null)
+            {
+                result.ExceptionNessage = "User with this email not foundInDb";
+                return result;
+            }
+
+            return result;
         }
 
-        public UserDto UpdateUser(UserDto user)
+        public UserResult CreateUser(UserDto user)
         {
-            return _repository.UpdateUser(user);
+            var userInDb = _repository.GetUser(user.Email);
+
+            var result = new UserResult();
+
+            if (userInDb != null)
+            {
+                result.ExceptionNessage = "User with this email already exist";
+                return result;
+            } 
+
+            result.User = _repository.CreateUser(user);
+
+            return result;
         }
 
-        public bool DeleteUser(int id)
+        public UserResult UpdateUser(UserDto user)
         {
-            return _repository.DeleteUser(id);
+            var updatedUser = _repository.UpdateUser(user);
+
+            var result = new UserResult();
+            if (updatedUser == null)
+            {
+                result.ExceptionNessage = "User with this email already exist";
+            }
+
+            result.User = updatedUser;
+
+            return result;
+        }
+
+        public bool DeleteUser(string email)
+        {
+            return _repository.DeleteUser(email);
         }
     }
 }

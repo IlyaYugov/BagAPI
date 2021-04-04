@@ -3,12 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31112.23
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BagAPI", "BagAPI\BagAPI.csproj", "{AA340D19-0649-4196-8913-DE24187F170F}"
-	ProjectSection(ProjectDependencies) = postProject
-		{914DFA2B-6AE2-48B7-B3BC-10107AEA102A} = {914DFA2B-6AE2-48B7-B3BC-10107AEA102A}
-		{9A0941D5-7422-42C6-BEBE-FEAF2F37BCF2} = {9A0941D5-7422-42C6-BEBE-FEAF2F37BCF2}
-	EndProjectSection
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccess", "DataAccess\DataAccess.csproj", "{914DFA2B-6AE2-48B7-B3BC-10107AEA102A}"
 	ProjectSection(ProjectDependencies) = postProject
 		{11EC3B9A-EF04-41C7-9471-5BCD620EE00A} = {11EC3B9A-EF04-41C7-9471-5BCD620EE00A}
@@ -25,7 +19,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DTO", "DTO\DTO.csproj", "{1
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests", "Tests\Tests.csproj", "{C929856F-109D-4D06-A022-5AC3A4DA88A8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YandexApiParser", "YandexApiParser\YandexApiParser.csproj", "{C20F94E8-C151-44FA-8888-D1BFBBECD6DD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DbFiller", "YandexApiParser\DbFiller.csproj", "{C20F94E8-C151-44FA-8888-D1BFBBECD6DD}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShareBagAPI", "ShareBagAPI\ShareBagAPI.csproj", "{8959BB3B-81DC-44A8-80B6-0362255C53DA}"
 EndProject
@@ -35,10 +29,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{AA340D19-0649-4196-8913-DE24187F170F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AA340D19-0649-4196-8913-DE24187F170F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AA340D19-0649-4196-8913-DE24187F170F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AA340D19-0649-4196-8913-DE24187F170F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{914DFA2B-6AE2-48B7-B3BC-10107AEA102A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{914DFA2B-6AE2-48B7-B3BC-10107AEA102A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{914DFA2B-6AE2-48B7-B3BC-10107AEA102A}.Release|Any CPU.ActiveCfg = Release|Any CPU

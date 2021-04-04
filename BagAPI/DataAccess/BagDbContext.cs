@@ -35,16 +35,20 @@ namespace DataAccess
             .HasOne(p => p.DestinationStation)
             .WithMany(b => b.DestinationFlights)
             .HasForeignKey(p => p.DestinationStationCode);
+
+            modelBuilder.Entity<User>()
+            .HasIndex(u => u.Email)
+            .IsUnique();
         }
 
         internal DbSet<Bag> Bag { get; set; }
-        internal DbSet<RequestType> BagType { get; set; }
+        internal DbSet<BagRequestType> BagRequestType { get; set; }
         internal DbSet<Country> Country { get; set; }
         internal DbSet<Region> Region { get; set; }
         internal DbSet<Settlement> Settlement { get; set; }
         internal DbSet<Station> Station { get; set; }
-        internal DbSet<BagRequest> Request { get; set; }
-        internal DbSet<RequestStatus> RequestStatus { get; set; }
+        internal DbSet<BagRequest> BagRequest { get; set; }
+        internal DbSet<BagRequestStatus> BagRequestStatus { get; set; }
         internal DbSet<User> User { get; set; }
     }
 }

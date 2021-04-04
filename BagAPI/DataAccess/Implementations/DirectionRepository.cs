@@ -18,7 +18,7 @@ namespace DataAccess.Implementations
         {
             var cities = _bagDbContext
                 .Settlement
-                .Where(s => s.Title.Contains(search))
+                .Where(s => s.Title.ToLower().Contains(search.ToLower()))
                 .Include(s => s.Stations)
                 .ToList();
 
