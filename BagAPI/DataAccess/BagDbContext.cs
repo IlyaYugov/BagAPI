@@ -5,11 +5,46 @@ namespace DataAccess
 {
     public class BagDbContext : DbContext
     {
+        internal DbSet<Bag> Bag { get; set; }
+        internal DbSet<BagRequestType> BagRequestType { get; set; }
+        internal DbSet<Country> Country { get; set; }
+        internal DbSet<Region> Region { get; set; }
+        internal DbSet<Settlement> Settlement { get; set; }
+        internal DbSet<Station> Station { get; set; }
+        internal DbSet<BagRequest> BagRequest { get; set; }
+        internal DbSet<BagRequestStatus> BagRequestStatus { get; set; }
+        internal DbSet<User> User { get; set; }
+
+        private static volatile bool _isInitialized;
+        private static readonly object Mutex = new object();
+
         public BagDbContext(DbContextOptions<BagDbContext> options)
             : base(options)
-        {}
+        {
+            if (_isInitialized)
+            {
+                return;
+            }
+
+            lock (Mutex)
+            {
+                if (_isInitialized)
+                {
+                    return;
+                }
+
+                Database.Migrate();
+
+                _isInitialized = true;
+            }
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            AddRelationships(modelBuilder);
+        }
+
+        private void AddRelationships(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Region>()
             .HasOne(p => p.Country)
@@ -41,14 +76,29 @@ namespace DataAccess
             .IsUnique();
         }
 
-        internal DbSet<Bag> Bag { get; set; }
-        internal DbSet<BagRequestType> BagRequestType { get; set; }
-        internal DbSet<Country> Country { get; set; }
-        internal DbSet<Region> Region { get; set; }
-        internal DbSet<Settlement> Settlement { get; set; }
-        internal DbSet<Station> Station { get; set; }
-        internal DbSet<BagRequest> BagRequest { get; set; }
-        internal DbSet<BagRequestStatus> BagRequestStatus { get; set; }
-        internal DbSet<User> User { get; set; }
+        //private static void AddDefaultValues(ModelBuilder modelBuilder)
+        //{
+        //    modelBuilder.HasPostgresExtension(GuidGeneratorExtension)
+        //                .Entity<EntityUnion>()
+        //                .Property(e => e.Id)
+        //                .HasDefaultValueSql(GeneratorFunctionName);
+
+        //    modelBuilder.HasPostgresExtension(GuidGeneratorExtension)
+        //                .Entity<InformationField>()
+        //                .Property(e => e.Id)
+        //                .HasDefaultValueSql(GeneratorFunctionName);
+
+        //    modelBuilder.HasPostgresExtension(GuidGeneratorExtension)
+        //                .Entity<FileField>()
+        //                .Property(e => e.Id)
+        //                .HasDefaultValueSql(GeneratorFunctionName);
+
+        //    modelBuilder.Entity<FileFieldType>()
+        //                .HasData(GetDefaultFileFieldTypes());
+
+        //    modelBuilder.Entity<InformationFieldType>()
+        //                .HasData(GetDefaultInformationFieldTypes());
+        //}
+
     }
 }

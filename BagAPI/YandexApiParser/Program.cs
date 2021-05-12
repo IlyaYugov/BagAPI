@@ -14,21 +14,27 @@ namespace YandexApiParser
         {
             //setup our DI
             var serviceProvider = new ServiceCollection()
-                .AddDbContext<BagDbContext>(opt => opt.UseNpgsql("User ID=postgres;Password=postgres;Server=localhost;Port=5432;Database=ShareBagDb;Integrated Security=true;Pooling=true;"))
+                .AddDbContext<BagDbContext>(opt => 
+                opt.UseNpgsql("User ID=postgres;Password=postgres;Server=localhost;Port=5432;Database=ShareBagDb;Integrated Security=true;Pooling=true;"))
                 .BuildServiceProvider();
 
             ApiOptions.ApiKey = "";
 
-            //configure console logging
             var bagContext = serviceProvider
                 .GetService<BagDbContext>();
 
-            FillBagRequestStatuses(bagContext);
-            FillBagRequestTypes(bagContext);
-            FillCities(bagContext);
+            var statuses = GetBagRequestStatuses();
+            var requests = GetBagRequestTypes();
+            var countries = GetCountries();
+
+            bagContext.AddRange(statuses);
+            bagContext.AddRange(requests);
+            bagContext.AddRange(countries);
+
+            bagContext.Save();
         }
 
-        private static void FillBagRequestStatuses(BagDbContext bagContext)
+        private static List<BagRequestStatus> GetBagRequestStatuses()
         {
             var statuses = new List<BagRequestStatus>
             {
@@ -49,10 +55,9 @@ namespace YandexApiParser
                 },
             };
 
-            bagContext.AddRange(statuses);
-            bagContext.Save();
+            return statuses;
         }
-        private static void FillBagRequestTypes(BagDbContext bagContext)
+        private static List<BagRequestType> GetBagRequestTypes()
         {
             var types = new List<BagRequestType>
             {
@@ -67,18 +72,15 @@ namespace YandexApiParser
                     Name = BagRequestTypes.SendBag.ToString()
                 },
             };
-         
-            bagContext.AddRange(types);
-            bagContext.Save();
-        }
-        public static void FillCities(BagDbContext bagContext)
-        {
-            ApiOptions.ApiKey = "";
 
+            return types;
+        }
+        public static List<Country> GetCountries()
+        {
             var parser = new YandexApiParser();
             var сountries = parser.GetCountriesWithAiroports().Result;
 
-            bagContext.AddRange(сountries);
+            return сountries;
         }
     }
 }

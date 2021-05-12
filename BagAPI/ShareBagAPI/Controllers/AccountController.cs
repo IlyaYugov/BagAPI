@@ -1,5 +1,4 @@
 ﻿using Domain;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -8,7 +7,6 @@ using System.Security.Claims;
 using Microsoft.IdentityModel.Tokens;
 using DTO;
 using Microsoft.AspNetCore.Authorization;
-using System.Linq;
 
 namespace ShareBagAPI.Controllers
 {
@@ -22,13 +20,13 @@ namespace ShareBagAPI.Controllers
             _userDomain = userDomain;
         }
 
-        [HttpPost("/Token")]
+        [HttpPost("Token")]
         public ActionResult<string> Token(string email, string password)
         {         
             return GetToken(email, password);
         }
        
-        [HttpPost("/CreateUser")]
+        [HttpPost("CreateUser")]
         public ActionResult<string> CreateUser(UserDto user)
         {
             var createdUser = _userDomain.CreateUser(user);
@@ -96,12 +94,6 @@ namespace ShareBagAPI.Controllers
                     expires: now.Add(TimeSpan.FromMinutes(AuthOptions.LIFETIME)),
                     signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
             var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
-
-/*            var response = new
-            {
-                access_token = encodedJwt,
-                username = identity.Name
-            };*/
 
             return Ok(encodedJwt);
         }

@@ -20,7 +20,6 @@ namespace ShareBagAPI.Controllers
             this.directionDomain = directionDomain;
         }
 
-        //[Authorize(AuthenticationSchemes = "Bearer")]
         [Route("getDirections")]
         [HttpGet]
         public IEnumerable<CityDto> GetDirections(string search)
