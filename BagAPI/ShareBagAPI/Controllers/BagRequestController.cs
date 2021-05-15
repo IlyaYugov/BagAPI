@@ -21,21 +21,18 @@ namespace ShareBagAPI.Controllers
             this.bagRequestDomain = bagRequestDomain;
         }
 
-        // GET: api/<BagRequestController>
         [HttpGet]
         public IEnumerable<BagRequestsDto> Get(DateTime from, DateTime to, string depatrureStationCode, string arrivalStationCode, int typeId)
         {
             return bagRequestDomain.GetBagRequests(from, to, depatrureStationCode, arrivalStationCode, typeId);
         }
 
-        // GET api/<BagRequestController>/5
         [HttpGet("{id}")]
         public BagRequestDto Get(int id)
         {
             return bagRequestDomain.GetBagRequest(id);
         }
 
-        // POST api/<BagRequestController>
         [HttpPost]
         public ActionResult Post(BagRequestDto bagRequest)
         {
@@ -45,8 +42,7 @@ namespace ShareBagAPI.Controllers
             return Ok(new { });
         }
 
-        // PUT api/<BagRequestController>/5
-        [HttpPatch("deal/{id}")]
+        [HttpPut("deal/{id}")]
         public BagRequestDto Deal(int id)
         {
             var email = User.Identity.Name;
@@ -54,9 +50,8 @@ namespace ShareBagAPI.Controllers
             return bagRequestDomain.Deal(id, email);
         }
 
-        // PUT api/<BagRequestController>/5
-        [HttpPatch("unDeal/{id}")]
-        public BagRequestDto unDeal(int id)
+        [HttpPut("unDeal/{id}")]
+        public BagRequestDto UnDeal(int id)
         {
             var email = User.Identity.Name;
 

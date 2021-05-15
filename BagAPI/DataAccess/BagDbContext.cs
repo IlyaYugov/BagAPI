@@ -1,10 +1,14 @@
 ﻿using DataAccess.Model;
+using DTO;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 
 namespace DataAccess
 {
     public class BagDbContext : DbContext
     {
+        private readonly ICountriesProvidred _countriesProvidred;
+
         internal DbSet<Bag> Bag { get; set; }
         internal DbSet<BagRequestType> BagRequestType { get; set; }
         internal DbSet<Country> Country { get; set; }
@@ -18,9 +22,10 @@ namespace DataAccess
         private static volatile bool _isInitialized;
         private static readonly object Mutex = new object();
 
-        public BagDbContext(DbContextOptions<BagDbContext> options)
+        public BagDbContext(DbContextOptions<BagDbContext> options, ICountriesProvidred countriesProvidred)
             : base(options)
         {
+            _countriesProvidred = countriesProvidred;
             if (_isInitialized)
             {
                 return;
@@ -42,6 +47,7 @@ namespace DataAccess
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             AddRelationships(modelBuilder);
+            AddDefaultValues(modelBuilder);
         }
 
         private void AddRelationships(ModelBuilder modelBuilder)
@@ -76,29 +82,60 @@ namespace DataAccess
             .IsUnique();
         }
 
-        //private static void AddDefaultValues(ModelBuilder modelBuilder)
-        //{
-        //    modelBuilder.HasPostgresExtension(GuidGeneratorExtension)
-        //                .Entity<EntityUnion>()
-        //                .Property(e => e.Id)
-        //                .HasDefaultValueSql(GeneratorFunctionName);
+        private void AddDefaultValues(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<BagRequestType>()
+                        .HasData(GetBagRequestTypes());
 
-        //    modelBuilder.HasPostgresExtension(GuidGeneratorExtension)
-        //                .Entity<InformationField>()
-        //                .Property(e => e.Id)
-        //                .HasDefaultValueSql(GeneratorFunctionName);
+            modelBuilder.Entity<BagRequestStatus>()
+                        .HasData(GetBagRequestStatuses());
 
-        //    modelBuilder.HasPostgresExtension(GuidGeneratorExtension)
-        //                .Entity<FileField>()
-        //                .Property(e => e.Id)
-        //                .HasDefaultValueSql(GeneratorFunctionName);
+            var countriesData = _countriesProvidred.GetCountries().Result;
+            modelBuilder.Entity<Country>()
+                        .HasData(countriesData);
+        }
 
-        //    modelBuilder.Entity<FileFieldType>()
-        //                .HasData(GetDefaultFileFieldTypes());
+        private static List<BagRequestStatus> GetBagRequestStatuses()
+        {
+            var statuses = new List<BagRequestStatus>
+            {
+                new BagRequestStatus
+                {
+                    Id = (int)BagRequestStatuses.Created,
+                    Name = BagRequestStatuses.Created.ToString()
+                },
+                new BagRequestStatus
+                {
+                    Id = (int)BagRequestStatuses.Deal,
+                    Name = BagRequestStatuses.Deal.ToString()
+                },
+                 new BagRequestStatus
+                {
+                    Id = (int)BagRequestStatuses.Completed,
+                    Name = BagRequestStatuses.Completed.ToString()
+                },
+            };
 
-        //    modelBuilder.Entity<InformationFieldType>()
-        //                .HasData(GetDefaultInformationFieldTypes());
-        //}
+            return statuses;
+        }
+        private static List<BagRequestType> GetBagRequestTypes()
+        {
+            var types = new List<BagRequestType>
+            {
+                new BagRequestType
+                {
+                    Id = (int)BagRequestTypes.TransfererBag,
+                    Name = BagRequestTypes.TransfererBag.ToString()
+                },
+                new BagRequestType
+                {
+                    Id = (int)BagRequestTypes.SendBag,
+                    Name = BagRequestTypes.SendBag.ToString()
+                },
+            };
+
+            return types;
+        }
 
     }
 }

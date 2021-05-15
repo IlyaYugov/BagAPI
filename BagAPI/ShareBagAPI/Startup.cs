@@ -1,5 +1,6 @@
 using DataAccess;
 using DataAccess.Implementations;
+using DirectionsFiller;
 using Domain;
 using Domain.IRepositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -84,6 +85,8 @@ namespace ShareBagAPI
             services.AddTransient<DirectionDomain>();
             services.AddTransient<UserDomain>();
             services.AddTransient<BagRequestDomain>();
+
+            services.AddTransient<ICountriesProvidred, YandexApiParser>();
 
             ApiOptions.ApiKey = Configuration.GetConnectionString("YandexApiKey");
         }

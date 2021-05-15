@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DataAccess\DataAccess.csproj" />
+    <ProjectReference Include="..\YandexApiParser\DirectionsFiller.csproj" />
     <ProjectReference Include="..\YandexAPIWorker\YandexAPIWorker.csproj" />
   </ItemGroup>
 

@@ -4,14 +4,15 @@ using YandexAPIWorker;
 using YandexAPIWorker.Emun;
 using System.Linq;
 using System.Threading.Tasks;
+using DataAccess;
 
-namespace YandexApiParser
+namespace DirectionsFiller
 {
-    public class YandexApiParser
+    public class YandexApiParser: ICountriesProvidred
     {
         private const string airport = "airport";
 
-        public async Task<List<Country>> GetCountriesWithAiroports()
+        public async Task<IList<Country>> GetCountries()
         {
             var countries = await HttpRequestFactory.GetCountres(Languages.ru_RU.ToString());
 
