@@ -2,6 +2,7 @@
 using DTO;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DataAccess
 {
@@ -46,8 +47,8 @@ namespace DataAccess
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            AddRelationships(modelBuilder);
             AddDefaultValues(modelBuilder);
+            AddRelationships(modelBuilder);
         }
 
         private void AddRelationships(ModelBuilder modelBuilder)
@@ -90,9 +91,37 @@ namespace DataAccess
             modelBuilder.Entity<BagRequestStatus>()
                         .HasData(GetBagRequestStatuses());
 
-            var countriesData = _countriesProvidred.GetCountries().Result;
+            var countriesData = _countriesProvidred.GetCountries().Result.ToList();
+
+            var stationsData = countriesData.SelectMany(co=> co.Regions.SelectMany(r=>r.Settlements.SelectMany(s=>s.Stations))).ToList();
+            var settlementsData = countriesData.SelectMany(co => co.Regions.SelectMany(r => r.Settlements)).ToList();
+            var regionsData = countriesData.SelectMany(co => co.Regions).ToList();
+
+
+            foreach (var country in countriesData)
+            {
+                country.Regions = null;
+            }
+            foreach (var region in regionsData)
+            {
+                region.Settlements = null;
+            }
+            foreach (var settlement in settlementsData)
+            {
+                settlement.Stations = null;
+            }
+
             modelBuilder.Entity<Country>()
-                        .HasData(countriesData);
+            .HasData(countriesData);
+
+            modelBuilder.Entity<Region>()
+            .HasData(regionsData);
+
+            modelBuilder.Entity<Settlement>()
+            .HasData(settlementsData);
+
+            modelBuilder.Entity<Station>()
+                        .HasData(stationsData);
         }
 
         private static List<BagRequestStatus> GetBagRequestStatuses()
