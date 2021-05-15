@@ -34,6 +34,15 @@ namespace Domain
 
             return repository.Deal(request, user);
         }
+        public BagRequestDto UnDeal(int requestId, string dealUserEmail)
+        {
+            var user = userDomain.GetUser(dealUserEmail).User;
+            user.Password = null;
+
+            var request = repository.GetBagRequest(requestId);
+
+            return repository.UnDeal(request, user);
+        }
         public bool DeleteBagRequest(int id, int userId)
         {
             var request = GetBagRequest(id);

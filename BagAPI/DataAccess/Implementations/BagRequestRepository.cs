@@ -74,6 +74,7 @@ namespace DataAccess.Implementations
             {
                 Id = request.Id,
                 RequestTypeId = request.RequestTypeId,
+                RequestStatusId = request.RequestStatusId,
                 Bag = new BagDto
                 {
                     Price = request.Bag.Price,
@@ -147,6 +148,27 @@ namespace DataAccess.Implementations
             {
                 request.SenderUserId = user.Id;
                 requestDto.SenderUser = user;
+            }
+
+            _bagDbContext.Update(request);
+            _bagDbContext.SaveChanges();
+
+            return requestDto;
+        }
+
+        public BagRequestDto UnDeal(BagRequestDto requestDto, UserDto user)
+        {
+            var request = _bagDbContext.BagRequest.FirstOrDefault(r => r.Id == requestDto.Id);
+
+            request.RequestStatusId = (int)BagRequestStatuses.Created;
+
+            if (requestDto.RequestTypeId == (int)BagRequestTypes.SendBag && (user.Id == request.SenderUserId || user.Id == request.TransfererUserId))
+            {
+                request.TransfererUserId = null;
+            }
+            if (requestDto.RequestTypeId == (int)BagRequestTypes.TransfererBag && (user.Id == request.SenderUserId || user.Id == request.TransfererUserId))
+            {
+                request.SenderUserId = null;
             }
 
             _bagDbContext.Update(request);

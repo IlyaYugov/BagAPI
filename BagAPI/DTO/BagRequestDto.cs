@@ -6,6 +6,7 @@ namespace DTO
     {
         public int Id { get; set; }
         public int RequestTypeId { get; set; }
+        public int RequestStatusId { get; set; }
 
         public BagDto Bag {get;set;}
 

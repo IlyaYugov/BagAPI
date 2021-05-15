@@ -9,6 +9,8 @@ namespace Domain.IRepositories
         BagRequestDto GetBagRequest(int id);
         void CreateBagRequest(BagRequestDto request, int userId);
         BagRequestDto Deal(BagRequestDto request, UserDto userDto);
+        BagRequestDto UnDeal(BagRequestDto request, UserDto userDto);
+
         void DeleteBagRequest(int id);
         IEnumerable<BagRequestsDto> GetBagRequests(DateTime from, DateTime to, string depatrureStationCode, string arrivalStationCode, int requestTypeId);
     }

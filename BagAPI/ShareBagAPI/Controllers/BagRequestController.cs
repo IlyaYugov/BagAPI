@@ -46,12 +46,21 @@ namespace ShareBagAPI.Controllers
         }
 
         // PUT api/<BagRequestController>/5
-        [HttpPut("deal/{id}")]
-        public BagRequestDto Put(int id)
+        [HttpPatch("deal/{id}")]
+        public BagRequestDto Deal(int id)
         {
             var email = User.Identity.Name;
 
             return bagRequestDomain.Deal(id, email);
+        }
+
+        // PUT api/<BagRequestController>/5
+        [HttpPatch("unDeal/{id}")]
+        public BagRequestDto unDeal(int id)
+        {
+            var email = User.Identity.Name;
+
+            return bagRequestDomain.UnDeal(id, email);
         }
 
         // DELETE api/<BagRequestController>/5
