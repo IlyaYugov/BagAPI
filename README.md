@@ -23,3 +23,5 @@ some request examples
 Get flights between Moscow - Saint-Petersburg
 https://localhost:5000/api/direction/getFlights?from=s9600366&to=s9600216&offset=0&limit=100&date=2021-07-31
 
+
+P.S. first request sould be slow, because data base will be initialize by sedning request in Yandex.API
