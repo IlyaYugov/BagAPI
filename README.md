@@ -1,27 +1,43 @@
 # BagAPI
 
+To run server - execute following commands:
+
+- docker pull napaum/bagapi
+OR
+- docker build -t bagapi .
+
+- docker network create bag-network
+
+- docker run -it --rm -p 5000:80 --network bag-network --name bagapi_container napaum/bagapi
+
+- docker run -it --name posgresServer --network bag-network -e POSTGRES_PASSWORD=postgres -d postgres
+
+
+Docker hub 
+https://hub.docker.com/repository/docker/napaum/bagapi/general
+
+
 Required condition for Use Yandex API, you should use Banner
 https://yandex.ru/dev/rasp/doc/reference/query-copyright.html
 
-Doker repository 
-https://hub.docker.com/repository/docker/napaum/bagapi/general
-
-Doker image pull command 
-docker pull napaum/bagapi:latest
 
 Swagger
-swagger http://localhost:5000/swagger/index.html
+http://localhost:5000/swagger/index.html
 
-use request headers with Authorization header
-Like that
+
+Use request headers with Authorization header:
+(you should get token from POST /api/Account/Token)
+
 headers: {
     "Accept": "application/json",
-    "Authorization": "Bearer " + token  // передача токена в заголовке
+    "Authorization": "Bearer " + token 
 }
 
-some request examples
-Get flights between Moscow - Saint-Petersburg
+
+
+Request example:
+Get flights from Moscow to Saint-Petersburg on date 31.07.2021
 https://localhost:5000/api/direction/getFlights?from=s9600366&to=s9600216&offset=0&limit=100&date=2021-07-31
 
 
-P.S. first request sould be slow, because data base will be initialize by sedning request in Yandex.API
+P.S. first request should be slow, because DB will be initialize by sending request to Yandex.API
