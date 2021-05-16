@@ -1,6 +1,6 @@
 # BagAPI
 
-Requared condition for Use Yandex API, you should use Banner
+Required condition for Use Yandex API, you should use Banner
 https://yandex.ru/dev/rasp/doc/reference/query-copyright.html
 
 Doker repository 
