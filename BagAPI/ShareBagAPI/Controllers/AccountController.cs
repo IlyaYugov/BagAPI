@@ -21,9 +21,9 @@ namespace ShareBagAPI.Controllers
         }
 
         [HttpPost("Token")]
-        public ActionResult<string> Token(string email, string password)
+        public ActionResult<string> Token(UserDto user)
         {         
-            return GetToken(email, password);
+            return GetToken(user.Email, user.Password);
         }
        
         [HttpPost("CreateUser")]
@@ -34,7 +34,7 @@ namespace ShareBagAPI.Controllers
             if (createdUser.ExceptionNessage != null)
                 return BadRequest(createdUser.ExceptionNessage);
 
-            return Token(createdUser.User.Email, createdUser.User.Password);
+            return GetToken(createdUser.User.Email, createdUser.User.Password);
         }
 
         [HttpGet]
