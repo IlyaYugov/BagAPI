@@ -45,7 +45,7 @@ namespace ShareBagAPI
 
             ConfigureDependences(services);
             ConfigureAuth(services);
-        }     
+        }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -68,7 +68,10 @@ namespace ShareBagAPI
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseCors(builder => builder.AllowAnyOrigin());
+            app.UseCors(builder => builder
+                                    .WithOrigins("*")
+                                    .AllowAnyHeader()
+                                    .AllowAnyMethod());
 
             app.UseEndpoints(endpoints =>
             {
