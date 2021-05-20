@@ -7,6 +7,7 @@ using System.Security.Claims;
 using Microsoft.IdentityModel.Tokens;
 using DTO;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNet.WebApi.Cors
 
 namespace ShareBagAPI.Controllers
 {
@@ -20,12 +21,14 @@ namespace ShareBagAPI.Controllers
             _userDomain = userDomain;
         }
 
+        [EnableCors("CorsPolicy")]
         [HttpPost("Token")]
         public ActionResult<string> Token(string email, string password)
         {         
             return GetToken(email, password);
         }
        
+        [EnableCors("CorsPolicy")]
         [HttpPost("CreateUser")]
         public ActionResult<string> CreateUser(UserDto user)
         {
