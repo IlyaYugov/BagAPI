@@ -8,7 +8,7 @@ OR
 
 - docker network create bag-network
 
-- docker run -it --rm -p 5000:80 --network bag-network --name bagapi_container napaum/bagapi
+- docker run -it --rm -p 5050:80 --network bag-network --name bagapi_container napaum/bagapi
 
 - docker run -it --name posgresServer --network bag-network -e POSTGRES_PASSWORD=postgres -d postgres
 
@@ -37,7 +37,7 @@ headers: {
 
 Request example:
 Get flights from Moscow to Saint-Petersburg on date 31.07.2021
-https://localhost:5000/api/direction/getFlights?from=s9600366&to=s9600216&offset=0&limit=100&date=2021-07-31
+http://localhost:5000/api/direction/getFlights?from=s9600366&to=s9600216&offset=0&limit=100&date=2021-07-31
 
 
 P.S. first request should be slow, because DB will be initialize by sending request to Yandex.API
