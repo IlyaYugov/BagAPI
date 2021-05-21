@@ -52,6 +52,7 @@ namespace DirectionsFiller
                     .Where(r => r.settlements.Any(st => settlementCodes.TryGetValue(st.codes.yandex_code, out value)))
                     .Select(r => new Region
                     {
+                        CityCode = s.codes.yandex_code,
                         Code = r.codes.yandex_code,
                         Title = r.title,
                         Settlements = r.settlements
@@ -59,12 +60,14 @@ namespace DirectionsFiller
                         .Where(st => st.stations.Any(station => stationCodes.TryGetValue(station.codes.yandex_code, out value)))
                         .Select(st => new Settlement
                         {
+                            RegionCode = r.codes.yandex_code,
                             Code = st.codes.yandex_code,
                             Title = st.title,
                             Stations = st.stations
                             .Where(station => stationCodes.TryGetValue(station.codes.yandex_code, out value))
                             .Select(station => new Station
                             {
+                                SettlementCode = st.codes.yandex_code,
                                 Code = station.codes.yandex_code,
                                 Title = station.title
                             }).ToList()

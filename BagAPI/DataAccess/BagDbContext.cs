@@ -47,8 +47,10 @@ namespace DataAccess
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            AddDefaultValues(modelBuilder);
+            base.OnModelCreating(modelBuilder);
+
             AddRelationships(modelBuilder);
+            AddDefaultValues(modelBuilder);
         }
 
         private void AddRelationships(ModelBuilder modelBuilder)
