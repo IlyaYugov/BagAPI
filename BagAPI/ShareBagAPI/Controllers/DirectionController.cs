@@ -32,8 +32,11 @@ namespace ShareBagAPI.Controllers
 
         [Route("getFlights")]
         [HttpGet]
-        public async Task<FlightsDto> GetFlights(string from, string to, DateTime date, string offset, string limit, string lang = null)
+        public async Task<ActionResult<FlightsDto>> GetFlights(string from, string to, DateTime date, string offset, string limit, string lang = null)
         {
+            if (from == to)
+                return BadRequest("Stations source and destination cannot be equal");
+
             return await directionDomain.GetFlights(from, to, date, offset, limit, lang);
         }
     }

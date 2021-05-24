@@ -46,8 +46,8 @@ namespace ShareBagAPI.Controllers
             var userResult = _userDomain.GetUser(email);
             userResult.User.Password = null;
 
-            if (userResult.ExceptionNessage == null)
-                return BadRequest(userResult);
+            if (userResult.ExceptionNessage != null)
+                return BadRequest(userResult.ExceptionNessage);
 
             return Ok(userResult);
         }

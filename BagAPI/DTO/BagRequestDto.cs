@@ -8,7 +8,7 @@ namespace DTO
         public int RequestTypeId { get; set; }
         public int RequestStatusId { get; set; }
 
-        public BagDto Bag {get;set;}
+        public BagDto Bag { get; set; }
 
         public UserDto TransfererUser { get; set; }
         public UserDto SenderUser { get; set; }
