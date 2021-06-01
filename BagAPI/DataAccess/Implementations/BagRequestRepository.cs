@@ -109,8 +109,8 @@ namespace DataAccess.Implementations
                 .Where(r => r.Flight.DestinationStationCode == arrivalStationCode &&
                             r.Flight.SourceStationCode == depatrureStationCode &&
 
-                            from <= r.Flight.DepartureTime &&
-                            to >= r.Flight.DepartureTime &&
+                            r.Flight.ArrivalTime <= to &&
+                            r.Flight.DepartureTime >=  from &&
                             
                             r.RequestTypeId == requestTypeId)
                 .Include(r=>r.Bag)
