@@ -123,6 +123,7 @@ namespace DataAccess.Implementations
             {
                 Id = r.Id,
                 BagWeight = r.Bag.Weight,
+                BagPrice = r.Bag.Price,
                 Date = r.Flight.DepartureTime,
                 FlightNumber = r.Flight.Number,
                 ArrivalStation = r.Flight.DestinationStation.Title,
